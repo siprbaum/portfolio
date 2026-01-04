@@ -56,6 +56,7 @@ import org.apache.commons.csv.CSVRecord;
 import name.abuchen.portfolio.Messages;
 import name.abuchen.portfolio.PortfolioLog;
 import name.abuchen.portfolio.datatransfer.Extractor.Item;
+import name.abuchen.portfolio.model.AccountTransaction;
 import name.abuchen.portfolio.model.Client;
 import name.abuchen.portfolio.model.Security;
 import name.abuchen.portfolio.util.Isin;
@@ -657,7 +658,17 @@ public final class CSVImporter
         {
             enumMap = new EnumMap<>(enumType);
             for (M element : enumType.getEnumConstants())
-                enumMap.put(element, element.toString());
+            {
+                if (element instanceof AccountTransaction.Type && element == AccountTransaction.Type.REMOVAL
+                                && "en".equals(Locale.getDefault().getLanguage()))
+                {
+                    enumMap.put(element, element.toString() + "|Removal");
+                }
+                else
+                {
+                    enumMap.put(element, element.toString());
+                }
+            }
         }
 
         public EnumMap<M, String> map() // NOSONAR
