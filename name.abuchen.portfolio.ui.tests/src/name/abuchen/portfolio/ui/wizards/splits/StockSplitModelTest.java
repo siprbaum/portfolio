@@ -25,12 +25,17 @@ public class StockSplitModelTest
         model.setOldShares(new BigDecimal(3));
         assertThat(model.calculateNewQuote(5), is(15L)); // quote multiplied by 3
         assertThat(model.calculateNewStock(12), is(4L)); // stock is divided by 3
-        
+
+
+        assertThat(model.calculateNewStock(357), is(119L)); // stock is divided by 3
+
+
         // 3 shares for 1
         model.setNewShares(new BigDecimal(3));
         model.setOldShares(new BigDecimal(1));
         assertThat(model.calculateNewQuote(6), is(2L)); // quote is divided by 3
         assertThat(model.calculateNewStock(3), is(9L)); // stock is multiplied by 3        
+
     }
 
 }
